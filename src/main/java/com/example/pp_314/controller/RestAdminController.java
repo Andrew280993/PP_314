@@ -3,7 +3,6 @@ package com.example.pp_314.controller;
 import com.example.pp_314.exeptionHandling.NoSuchUserException;
 import com.example.pp_314.model.Role;
 import com.example.pp_314.model.User;
-import com.example.pp_314.service.UserServiceRepository;
 import com.example.pp_314.service.RoleService;
 import com.example.pp_314.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +17,6 @@ import java.util.List;
 public class RestAdminController {
     private final UserService userService;
     private final RoleService roleService;
-    private final UserServiceRepository userServiceRepository;
 
 
     @GetMapping
@@ -39,7 +37,7 @@ public class RestAdminController {
 
     @PostMapping
     public User addNewUser(@RequestBody User user) {
-        userServiceRepository.save(user);
+        userService.updateUser(user);
         return user;
     }
 
