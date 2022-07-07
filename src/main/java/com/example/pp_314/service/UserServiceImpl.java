@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.PostPersist;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -41,11 +42,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @PostPersist
     public void saveUser(User user) {
         if (user.getRoles().size() == 0) {
             user.addRole(roleDao.findByName("USER"));
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.saveUser(user);
     }
 
@@ -59,6 +61,12 @@ public class UserServiceImpl implements UserService {
         if (user.getRoles().size() == 0) {
             user.addRole(roleDao.findByName("USER"));
         }
+        if(user.getPassword() == "") {
+            user.setPassword(getUserById(user.getId()).getPassword());
+        } else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         userDao.updateUser(user);
     }
 }
+

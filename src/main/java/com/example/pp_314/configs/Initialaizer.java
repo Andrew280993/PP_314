@@ -6,6 +6,7 @@ import com.example.pp_314.model.User;
 import com.example.pp_314.service.RoleService;
 import com.example.pp_314.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -16,11 +17,13 @@ public class Initialaizer {
 
     private final UserService userService;
     private final RoleService roleService;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public Initialaizer(UserService userService, RoleService roleService) {
+    public Initialaizer(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostConstruct
@@ -36,7 +39,7 @@ public class Initialaizer {
         user.setLastName("Michael");
         user.setAge((byte) 22);
         user.setEmail("user1@mail.ru");
-        user.setPassword("100");
+        user.setPassword(passwordEncoder.encode("100"));
         user.addRole(role1);
 
 
@@ -45,7 +48,7 @@ public class Initialaizer {
         user2.setLastName("Gaga");
         user2.setAge((byte) 32);
         user2.setEmail("user2@mail.ru");
-        user2.setPassword("100");
+        user2.setPassword(passwordEncoder.encode("100"));
         user2.addRole(role2);
 
         User user3 = new User();
@@ -53,7 +56,7 @@ public class Initialaizer {
         user3.setLastName("McFly");
         user3.setAge((byte) 21);
         user3.setEmail("user3@mail.ru");
-        user3.setPassword("100");
+        user3.setPassword(passwordEncoder.encode("100"));
         user3.addRole(role2);
         user3.addRole(role1);
 

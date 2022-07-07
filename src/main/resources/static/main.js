@@ -10,7 +10,7 @@ $(async function () {
         head: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Referer': null
+            'Referer': null,
         },
 
         showAllUsers: async () => await fetch('api'),
@@ -271,7 +271,7 @@ async function editUser(modal, id) {
                                 </div>
                                 <div class="form-group">
                                     <label class="font-weight-bold">Password</label>
-                                    <input type="password" value="" name="password" id="password" class="form-control">
+                                    <input type="password" value="${user.password}" name="password" id="password" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label class="font-weight-bold">Role</label>

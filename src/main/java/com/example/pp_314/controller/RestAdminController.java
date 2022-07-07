@@ -18,7 +18,6 @@ public class RestAdminController {
     private final UserService userService;
     private final RoleService roleService;
 
-
     @GetMapping
     public List<User> findAllUsers() {
         return userService.getAllUsers();
@@ -37,7 +36,7 @@ public class RestAdminController {
 
     @PostMapping
     public User addNewUser(@RequestBody User user) {
-        userService.updateUser(user);
+        userService.saveUser(user);
         return user;
     }
 
